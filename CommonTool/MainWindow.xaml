@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CommonTool"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="450">
+        Title="GetStartedApp" Height="450" Width="400">
 
     <StackPanel Margin="20" VerticalAlignment="Center">
 
@@ -53,11 +53,17 @@
         </Grid>
 
         <!-- Action Button -->
-        <Button Content="Calculate"
+        <!-- <Button Click="Button_OnClick" Content="Calculate" -->
+        <!--         Width="140" -->
+        <!--         Height="36" -->
+        <!--         HorizontalAlignment="Center" -->
+        <!--         FontWeight="SemiBold"/> -->
+        
+        <Button HorizontalAlignment="Center"
                 Width="140"
                 Height="36"
-                HorizontalAlignment="Center"
-                FontWeight="SemiBold"/>
+                HorizontalContentAlignment="Center"
+                Click="Button_OnClick">Calculate</Button>
     </StackPanel>
 
 </Window>
