@@ -59,10 +59,16 @@
         <!--         FontWeight="SemiBold"/> -->
         
         <Button HorizontalAlignment="Center"
-                Width="140"
-                Height="36"
+                Width="80"
+                Height="40"
                 HorizontalContentAlignment="Center"
-                Click="Button_OnClick">Calculate</Button>
+                Click="Button_OnClick">Cleanup
+        </Button>
+        
+        <!-- <Button HorizontalAlignment="Center" Width="40" Height="40" HorizontalContentAlignment="Center"> -->
+        <!-- </Button> -->
+        
+        
     </StackPanel>
 
 </Window>
