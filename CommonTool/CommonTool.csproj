@@ -13,4 +13,11 @@
       <PackageReference Include="Avalonia" Version="11.3.10" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Model\" />
+      <Folder Include="Services\" />
+      <Folder Include="ViewModels\" />
+      <Folder Include="Views\" />
+    </ItemGroup>
+
 </Project>

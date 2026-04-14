@@ -11,7 +11,7 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
-    private void Button_OnClick(object? sender,   System.Windows.RoutedEventArgs e)
+    private void Button_OnClick(object? sender, System.Windows.RoutedEventArgs e)
     {
         Debug.WriteLine("Click!");
     }
