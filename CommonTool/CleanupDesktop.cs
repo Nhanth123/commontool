@@ -3,9 +3,8 @@
 using System;
 using System.IO;
 using System.Linq;
+using Serilog;
 
-// using DotNetEnv;
-// using Serilog;
 
 public class CleanupDesktop
 {
@@ -16,11 +15,11 @@ public class CleanupDesktop
     void RemoveDesktopIcon()
     {
       
-        //Log.Information("Desktop path: {Path}", desktopPath);
+        Log.Information("Desktop path: {Path}", desktopPath);
 
         if (string.IsNullOrEmpty(desktopPath) || !Directory.Exists(desktopPath))
         {
-            //Log.Warning("Desktop path is invalid");
+            Log.Warning("Desktop path is invalid");
             return;
         }
 
@@ -29,17 +28,15 @@ public class CleanupDesktop
             try
             {
                 File.Delete(file);
-                Console.WriteLine("Removed: {File}", Path.GetFileName(file));
-                //Log.Information("Removed: {File}", Path.GetFileName(file));
+                Log.Information("Removed: {File}", Path.GetFileName(file));
             }
             catch (IOException ex)
             {
-                //Log.Error(ex, "Error removing file: {File}", file);
-                Console.WriteLine(ex);
+                Log.Error(ex, "Error removing file: {File}", file);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Console.WriteLine(ex);
+                Log.Error(ex, "UnauthorizedAccess exception: {File}", file);
             }
         }
     }
