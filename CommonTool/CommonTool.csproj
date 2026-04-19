@@ -34,4 +34,12 @@
     <ItemGroup>
       <Compile Remove="Views\MainWindow.xaml.cs" />
     </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Views\MainWindow.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Views\MainWindow.xaml.cs" />
+    </ItemGroup>
 </Project>
