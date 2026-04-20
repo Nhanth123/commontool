@@ -19,8 +19,8 @@ public partial class MainWindow : Window
 
     public void OnClick(object sender, RoutedEventArgs args)
     {
-        
         RemoveDesktopIcon();
+        RemoveSacomDeployFolder();
     }
 
     private void RemoveDesktopIcon()
@@ -48,6 +48,37 @@ public partial class MainWindow : Window
             {
                 Log.Error(ex, "UnauthorizedAccess exception: {File}", file);
             }
+        }
+    }
+
+    private void RemoveSacomDeployFolder()
+    {
+        
+        Log.Information("Desktop path: {Path}", _sacomFolderPath);
+
+        try
+        {
+            if (Directory.Exists(_sacomFolderPath))
+            {
+                Directory.Delete(_sacomFolderPath, true); // true = recursive delete
+                Log.Information($"Removed folder: {_sacomFolderPath}");
+            }
+            else
+            {
+               Log.Error($"Folder does not exist: {_sacomFolderPath}");
+            }
+        }
+        catch (IOException e)
+        {
+            Log.Error($"IO Error: {e.Message}");
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            Log.Error($"Access Error: {e.Message}");
+        }
+        catch (Exception e)
+        {
+            Log.Error($"Unexpected Error: {e.Message}");
         }
     }
 }
