@@ -23,6 +23,14 @@ public partial class MainWindow : Window
         RemoveSacomDeployFolder();
     }
 
+    private void AppAbout_OnClick(object? sender, System.EventArgs args) {
+
+    }
+
+    private void AppPreferences_OnClick(object? sender, System.EventArgs args) {
+    
+    }
+
     private void RemoveDesktopIcon()
     {
         Log.Information("Desktop path: {Path}", _desktopPath);

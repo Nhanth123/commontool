@@ -15,6 +15,9 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <Button HorizontalAlignment="Center" Click="OnClick">Click</Button>
+
+    
+    <Button HorizontalAlignment="Center" Click="OnClick" Content="Cleanup"/>
+    
 
 </Window>
