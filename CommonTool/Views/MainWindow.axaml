@@ -19,8 +19,8 @@
            DisplayMode="CompactInline"
            Background="#1e1e1e" PaneBackground="Bisque">
     <SplitView.Pane>
-        <Button HorizontalAlignment="Center" Click="OnClick" Content="Cleanup"/>
-        
+        <!-- <Button HorizontalAlignment="Center" Click="OnClick" Content="Cleanup"/> -->
+        <Button HorizontalAlignment="Center" Click="OnClick" Content="Upload Message"/>
     </SplitView.Pane>
     
     <SplitView.Content>

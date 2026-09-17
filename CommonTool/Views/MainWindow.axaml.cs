@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
 using System.IO;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using CommunityToolkit.Mvvm.Input;
 using Serilog;
+using IBM.WMQ;
+
 
 namespace CommonTool.Views;
 
@@ -14,13 +17,21 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
-    private string _desktopPath = @"C:\\Users\\nhanth37440\\Desktop\\";
-    private string _sacomFolderPath = @"C:\\SacomDeploy";
+    private readonly string _desktopPath = @"C:\\Users\\nhanth37440\\Desktop\\";
+    private readonly string _sacomFolderPath = @"C:\\SacomDeploy";
+    
+    private readonly Hashtable _connectionProperties;
+    private readonly string _queueManagerName;
+    private readonly string _queueName;
+    
 
     public void OnClick(object sender, RoutedEventArgs args)
     {
-        RemoveDesktopIcon();
-        RemoveSacomDeployFolder();
+        // RemoveDesktopIcon();
+        // RemoveSacomDeployFolder();
+        
+        
+        
     }
 
     private void AppAbout_OnClick(object? sender, System.EventArgs args) {
@@ -89,4 +100,67 @@ public partial class MainWindow : Window
             Log.Error($"Unexpected Error: {e.Message}");
         }
     }
+
+
+    private void UploadMessageToQueue()
+    {
+        
+    }
+    
+    public void SendLinesAsMessages(string filePath)
+    {
+        if (!File.Exists(filePath))
+        {
+            Console.WriteLine($"File not found: {filePath}");
+            return;
+        }
+
+        MQQueueManager queueManager = null;
+        MQQueue queue = null;
+
+        try
+        {
+            Console.WriteLine($"Connecting to {_queueManagerName}...");
+            queueManager = new MQQueueManager(_queueManagerName, _connectionProperties);
+
+            int openOptions = MQC.MQOO_OUTPUT | MQC.MQOO_FAIL_IF_QUIESCING;
+            queue = queueManager.AccessQueue(_queueName, openOptions);
+
+            int messageCount = 0;
+
+            // ReadLines streams the file, which prevents memory spikes on massive files
+            foreach (var line in File.ReadLines(filePath))
+            {
+                if (string.IsNullOrWhiteSpace(line)) continue;
+
+                var mqMessage = new MQMessage
+                {
+                    Format = MQC.MQFMT_STRING
+                };
+                mqMessage.WriteString(line);
+
+                var putOptions = new MQPutMessageOptions();
+                queue.Put(mqMessage, putOptions);
+                
+                messageCount++;
+            }
+
+            Console.WriteLine($"Successfully sent {messageCount} messages to {_queueName}.");
+        }
+        catch (MQException mqEx)
+        {
+            Console.WriteLine($"MQ Error: Reason Code {mqEx.ReasonCode}, Comp Code {mqEx.CompCode}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Application Error: {ex.Message}");
+        }
+        finally
+        {
+            // Always ensure the queue and manager are explicitly closed
+            queue?.Close();
+            queueManager?.Disconnect();
+        }
+    }
+    
 }
