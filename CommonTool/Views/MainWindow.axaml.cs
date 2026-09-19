@@ -6,6 +6,7 @@ using Avalonia.Interactivity;
 using CommunityToolkit.Mvvm.Input;
 using Serilog;
 using IBM.WMQ;
+using Serilog.Core;
 
 
 namespace CommonTool.Views;
@@ -29,9 +30,8 @@ public partial class MainWindow : Window
     {
         // RemoveDesktopIcon();
         // RemoveSacomDeployFolder();
-        
-        
-        
+
+        SendMessage();
     }
 
     private void AppAbout_OnClick(object? sender, System.EventArgs args) {
@@ -107,11 +107,11 @@ public partial class MainWindow : Window
         
     }
     
-    public void SendLinesAsMessages(string filePath)
+    public void SendMessage(string filePath)
     {
         if (!File.Exists(filePath))
         {
-            Console.WriteLine($"File not found: {filePath}");
+            Log.Warning($"File not found: {filePath}");
             return;
         }
 
@@ -120,7 +120,7 @@ public partial class MainWindow : Window
 
         try
         {
-            Console.WriteLine($"Connecting to {_queueManagerName}...");
+            Log.Information($"Connecting to {_queueManagerName}...");
             queueManager = new MQQueueManager(_queueManagerName, _connectionProperties);
 
             int openOptions = MQC.MQOO_OUTPUT | MQC.MQOO_FAIL_IF_QUIESCING;
@@ -145,15 +145,15 @@ public partial class MainWindow : Window
                 messageCount++;
             }
 
-            Console.WriteLine($"Successfully sent {messageCount} messages to {_queueName}.");
+            Log.Information($"Successfully sent {messageCount} messages to {_queueName}.");
         }
         catch (MQException mqEx)
         {
-            Console.WriteLine($"MQ Error: Reason Code {mqEx.ReasonCode}, Comp Code {mqEx.CompCode}");
+            Log.Warning($"MQ Error: Reason Code {mqEx.ReasonCode}, Comp Code {mqEx.CompCode}");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Application Error: {ex.Message}");
+            Log.Warning($"Application Error: {ex.Message}");
         }
         finally
         {
