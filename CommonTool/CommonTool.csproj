@@ -26,7 +26,8 @@
         <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.8" />
-        <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="10.0.8" />
+        <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="10.0.12" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.12" />
         <PackageReference Include="IBMMQDotnetClient" Version="10.0.0.0" />
     </ItemGroup>
 
@@ -34,9 +35,9 @@
       <None Remove="Views\MainWindow.xaml" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Compile Remove="Views\MainWindow.xaml.cs" />
-    </ItemGroup>
+<!--    <ItemGroup>-->
+<!--      <Compile Remove="Views\MainWindow.xaml.cs" />-->
+<!--    </ItemGroup>-->
 
     <ItemGroup>
       <None Remove="Views\MainWindow.xaml" />

@@ -31,7 +31,7 @@ public partial class MainWindow : Window
         // RemoveDesktopIcon();
         // RemoveSacomDeployFolder();
 
-        SendMessage();
+        SendMessage(_sacomFolderPath);
     }
 
     private void AppAbout_OnClick(object? sender, System.EventArgs args) {
