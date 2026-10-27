@@ -10,11 +10,11 @@ public static class DatabaseFactory
 
     private static readonly string DatabasePath = Path.Combine(DatabaseDirectory, "CommonTool.db");
 
-    public static AppDbContext CreateContext()
+    public static DataContext CreateContext()
     {
         Directory.CreateDirectory(DatabaseDirectory);
 
-        var options = new DbContextOptionsBuilder<AppDbContext>()
+        var options = new DbContextOptionsBuilder<DataContext>()
             .UseSqlite($"Data Source={DatabasePath}")
             .Options;
 
