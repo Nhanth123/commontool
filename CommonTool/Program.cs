@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using System;
 using Serilog;
+using Microsoft.EntityFrameworkCore;
 
 namespace CommonTool;
 
@@ -16,9 +17,22 @@ sealed class Program
             .CreateLogger();
 
 
-        BuildAvaloniaApp()
-            .StartWithClassicDesktopLifetime(args);
-        Log.CloseAndFlushAsync(); // Ensure logs are written before exit
+        try
+        {
+            Log.Information("Starting CommonTool application");
+
+            BuildAvaloniaApp()
+                .StartWithClassicDesktopLifetime(args);
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Application terminated unexpectedly");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+        
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.
